@@ -12,9 +12,10 @@ const forecast = (latitude, longitude, callback) => {
     } else if (response.body.error) {
       callback("unable to find location", undefined);
     } else {
-      callback(undefined, {
-        location: response.body.location.name,
-      });
+      callback(
+        undefined,
+        response.body.forecast["forecastday"][0]["day"]["mintemp_c"]
+      );
     }
   });
 };
