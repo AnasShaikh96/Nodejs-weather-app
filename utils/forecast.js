@@ -6,16 +6,13 @@ const forecast = (latitude, longitude, callback) => {
     latitude +
     "," +
     longitude;
-  request({ url, json: true }, (error, response) => {
+  request({ url, json: true }, (error, { body }) => {
     if (error) {
       callback("unable to connect to forecast services", undefined);
-    } else if (response.body.error) {
+    } else if (body.error) {
       callback("unable to find location", undefined);
     } else {
-      callback(
-        undefined,
-        response.body.forecast["forecastday"][0]["day"]["mintemp_c"]
-      );
+      callback(undefined, body.forecast["forecastday"][0]["day"]["mintemp_c"]);
     }
   });
 };
